@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maydeling — Mis XV Años</title>
+<meta name="description" content="Con enorme alegría, Maydeling te invita a compartir una noche inolvidable con motivo de sus quince años. 05 de septiembre de 2026.">
+<meta name="theme-color" content="#9D6573">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Maydeling — Mis XV Años">
+<meta property="og:description" content="Una invitación para una noche inolvidable. 05 de septiembre de 2026.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/images/hero.jpg">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6D6DC'/%3E%3Cpath d='M16 6c0 0 8 6 8 13 0 5-3.5 8-8 9-4.5-1-8-4-8-9 0-7 8-13 8-13Z' fill='none' stroke='%239D6573' stroke-width='1.6'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Parisienne&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ SVG SPRITE (motivo del tulipán, ornamentos) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="tulip-line" viewBox="0 0 60 100">
+      <path d="M30 6C30 6 46 22 46 40C46 52 39 60 30 64C21 60 14 52 14 40C14 22 30 6 30 6Z"/>
+      <path d="M30 64V92"/>
+      <path d="M30 78C24 78 18 82 15 90"/>
+      <path d="M30 84C36 84 42 88 45 96"/>
+      <path d="M30 40C26 30 22 24 16 20"/>
+      <path d="M30 40C34 30 38 24 44 20"/>
+    </symbol>
+
+    <symbol id="corner-vine" viewBox="0 0 120 120">
+      <path d="M4 4C40 4 4 40 4 4Z" opacity="0"/>
+      <path d="M6 60C6 30 30 6 60 6" stroke="#C7A76A" stroke-width="1"/>
+      <use href="#tulip-line" x="0" y="-4" width="34" height="56"/>
+      <use href="#tulip-line" x="66" y="0" width="30" height="50"/>
+    </symbol>
+
+    <symbol id="seal-monogram" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="1"/>
+      <text x="30" y="39" text-anchor="middle" font-family="'Parisienne', cursive" font-size="30" fill="currentColor">M</text>
+    </symbol>
+
+    <symbol id="silhouette-fan" viewBox="0 0 60 100">
+      <path d="M30 100C30 100 8 70 8 45C8 25 18 10 30 6C42 10 52 25 52 45C52 70 30 100 30 100Z" fill="none" stroke="#9D6573" stroke-width="1.2"/>
+      <path d="M30 6V96" stroke="#9D6573" stroke-width=".8"/>
+      <path d="M14 30C20 26 40 26 46 30" stroke="#9D6573" stroke-width=".8"/>
+    </symbol>
+
+    <symbol id="map-pin" viewBox="0 0 40 52">
+      <path d="M20 2C10 2 2 10 2 20C2 34 20 50 20 50C20 50 38 34 38 20C38 10 30 2 20 2Z" fill="none" stroke="#9D6573" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="6" fill="none" stroke="#C7A76A" stroke-width="1.4"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ PARTICLE FIELD (pétalos flotantes) ============ -->
+<div id="particle-field" aria-hidden="true"></div>
+
+<!-- ============ PROGRESS BAR ============ -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- ============ OPENING SCREEN ============ -->
+<section id="opening" aria-label="Pantalla de apertura de la invitación">
+  <div class="opening-inner">
+    <div class="opening-frame">
+      <p class="opening-kicker">Una invitación especial…</p>
+      <h1 class="opening-name">Maydeling</h1>
+      <p class="opening-xv">XV AÑOS</p>
+      <p class="opening-tagline">Una noche para recordar</p>
+
+      <button id="open-invitation" class="seal-button" aria-label="Abrir invitación">
+        <svg class="tulip-icon" style="stroke:#FFF9F5"><use href="#seal-monogram" width="46" height="46"/></svg>
+        <span class="seal-label">Abrir invitación</span>
+      </button>
+    </div>
+    <div class="opening-tulips" aria-hidden="true">
+      <svg class="tulip-icon"><use href="#tulip-line"/></svg>
+      <svg class="tulip-icon"><use href="#tulip-line"/></svg>
+      <svg class="tulip-icon"><use href="#tulip-line"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NAV ============ -->
+<button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+  <ul>
+    <li><a href="#carta">La Carta</a></li>
+    <li><a href="#countdown">Cuenta Regresiva</a></li>
+    <li><a href="#ceremonia">Misa &amp; Recepción</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#gazeta">Gazeta de Mayfair</a></li>
+    <li><a href="#confirmacion">Confirmar Asistencia</a></li>
+    <li><a href="#familia">Familia</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="hero">
+  <div class="hero-photo-wrap">
+    <img class="hero-photo" src="assets/images/hero.jpg" alt="Retrato principal de Maydeling" loading="eager">
+  </div>
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Con gran alegría</p>
+    <h1 class="hero-name">Maydeling</h1>
+    <p class="hero-xv">XV Años</p>
+    <p class="hero-date" data-hero-date>05 · Septiembre · 2026</p>
+    <div class="hero-scroll-cue"><span class="stem"></span>Desliza</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ CARTA DE INVITACIÓN ============ -->
+  <section class="section" id="carta">
+    <div class="container">
+      <div class="letter reveal">
+        <div class="letter-mark"><svg class="tulip-icon"><use href="#tulip-line"/></svg></div>
+        <p class="letter-greeting">Querido invitado</p>
+        <div class="letter-body">
+          <p>Hay instantes en la vida que merecen ser guardados junto a quienes hacen nuestra historia más hermosa.</p>
+          <p>Con el corazón lleno de alegría, tengo el honor de invitarte a compartir una velada inolvidable con motivo de mis quince años.</p>
+          <p>Será un placer contar con tu presencia.</p>
+        </div>
+        <p class="letter-sign">Maydeling</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COUNTDOWN ============ -->
+  <section class="section section--tint" id="countdown-section">
+    <div class="container">
+      <p class="eyebrow">Faltan solo</p>
+      <h2 class="section-title" id="countdown">La cuenta regresiva</h2>
+      <div class="tulip-divider"><span class="line"></span><svg class="tulip-icon gold"><use href="#tulip-line"/></svg><span class="line"></span></div>
+
+      <div class="countdown reveal" id="countdown-wrap">
+        <div class="countdown-unit"><div class="countdown-value" id="cd-days">00</div><div class="countdown-label">Días</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="cd-hours">00</div><div class="countdown-label">Horas</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="cd-minutes">00</div><div class="countdown-label">Minutos</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="cd-seconds">00</div><div class="countdown-label">Segundos</div></div>
+      </div>
+      <p class="countdown-final" id="countdown-final" style="display:none;">La velada ha comenzado — ¡nos vemos esta noche! 🌷</p>
+    </div>
+  </section>
+
+  <!-- ============ CEREMONIA + RECEPCIÓN ============ -->
+  <section class="section" id="ceremonia">
+    <div class="container">
+      <p class="eyebrow">El gran día</p>
+      <h2 class="section-title">Misa &amp; Recepción</h2>
+      <p class="section-sub">Dos momentos, una misma noche de celebración.</p>
+
+      <div class="event-grid">
+        <div class="event-card reveal reveal-delay-1">
+          <svg class="tulip-icon"><use href="#tulip-line"/></svg>
+          <h3>Misa</h3>
+          <p class="place" data-ceremony-place>Iglesia San José</p>
+          <p data-ceremony-address>Carretera</p>
+          <p data-ceremony-time>2:00 PM</p>
+          <a href="#" id="ceremony-maps-btn" class="btn" target="_blank" rel="noopener">Ver ubicación</a>
+        </div>
+        <div class="event-card reveal reveal-delay-2">
+          <svg class="tulip-icon"><use href="#tulip-line"/></svg>
+          <h3>Recepción</h3>
+          <p class="place" data-reception-place>[Lugar de recepción]</p>
+          <p data-reception-address>[Dirección por confirmar]</p>
+          <p data-reception-time>[Hora]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAMA ============ -->
+  <section class="section section--tint" id="programa">
+    <div class="container">
+      <p class="eyebrow">Orden de la velada</p>
+      <h2 class="section-title">Programa</h2>
+      <div class="tulip-divider"><span class="line"></span><svg class="tulip-icon gold"><use href="#tulip-line"/></svg><span class="line"></span></div>
+      <ul class="timeline" id="timeline-list" style="list-style:none; padding-left:30px;"></ul>
+    </div>
+  </section>
+
+  <!-- ============ GALERÍA ============ -->
+  <section class="section" id="galeria">
+    <div class="container">
+      <p class="eyebrow">Momentos</p>
+      <h2 class="section-title">Galería</h2>
+      <p class="section-sub">Un vistazo editorial a este capítulo antes de la gran noche.</p>
+      <div class="gallery" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ LA JOVEN MAYDELING ============ -->
+  <section class="section section--tint" id="joven">
+    <div class="container">
+      <div class="editorial">
+        <div class="editorial-photo reveal">
+          <img src="assets/images/retrato-editorial.jpg" alt="Retrato editorial de Maydeling" loading="lazy">
+        </div>
+        <div class="editorial-text reveal reveal-delay-1">
+          <p class="eyebrow" style="justify-content:flex-start;">Una nueva etapa comienza</p>
+          <h2 class="section-title">La joven Maydeling</h2>
+          <p>Entre risas compartidas y sueños que empiezan a tomar forma, hoy despido a la niña que fui para dar paso a la mujer que seré.</p>
+          <p>Quince años de aprender, de crecer junto a quienes amo, y de descubrir, poco a poco, quién quiero llegar a ser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DRESS CODE ============ -->
+  <section class="section" id="dresscode">
+    <div class="container">
+      <p class="eyebrow">Etiqueta</p>
+      <h2 class="section-title">Dress Code</h2>
+      <div class="dresscode-card reveal">
+        <p class="dresscode-sub" data-dresscode-title>Formal / Elegante</p>
+        <div class="silhouettes" aria-hidden="true">
+          <svg class="tulip-icon"><use href="#silhouette-fan"/></svg>
+          <svg class="tulip-icon"><use href="#silhouette-fan"/></svg>
+        </div>
+        <p class="dresscode-quote" data-dresscode-quote>Una noche digna de la alta sociedad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GAZETA DE MAYFAIR ============ -->
+  <section class="section section--tint" id="gazeta">
+    <div class="container">
+      <div class="gazeta reveal">
+        <div class="gazeta-header">
+          <h2 class="gazeta-title">Gazeta de Mayfair</h2>
+          <div class="gazeta-meta"><span>Edición especial</span><span data-hero-date>05 · Septiembre · 2026</span></div>
+        </div>
+        <div class="gazeta-columns">
+          <p>Se comenta, con gran entusiasmo entre los salones más distinguidos, que la señorita Maydeling se aproxima a una noche que promete quedar grabada en la memoria de toda la sociedad.</p>
+          <p>Testigos afirman haberla visto ensayando su vals con una gracia que solo se adquiere tras años de dedicación, mientras los jardines se llenan de tulipanes en anticipación al gran acontecimiento.</p>
+          <p>Se espera que la velada reúna a familiares y amigos cercanos, ataviados con su mejor elegancia, para presenciar el momento en que la joven cruce, oficialmente, el umbral hacia una nueva etapa de su vida.</p>
+        </div>
+        <p class="gazeta-caption">— Redactado por el Círculo de Amistades Cercanas —</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONFIRMACIÓN DE ASISTENCIA ============ -->
+  <section class="section rsvp" id="confirmacion">
+    <div class="container">
+      <p class="eyebrow">Respuesta solicitada</p>
+      <h2 class="section-title">¿Tendrás el honor de acompañarnos?</h2>
+      <p class="lede">Tu presencia hará de esta noche una celebración aún más especial.</p>
+      <div style="text-align:center;">
+        <a href="#" id="rsvp-btn" class="btn btn--solid" target="_blank" rel="noopener">Confirmar asistencia</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAPA ============ -->
+  <section class="section section--tint" id="mapa">
+    <div class="container">
+      <p class="eyebrow">Cómo llegar</p>
+      <h2 class="section-title">El lugar de encuentro</h2>
+      <div class="map-frame reveal">
+        <svg class="tulip-icon map-icon"><use href="#map-pin"/></svg>
+      </div>
+      <p class="map-address" data-map-address>Ubicación por confirmar</p>
+      <div style="text-align:center;">
+        <a href="#" id="map-btn" class="btn btn--gold" target="_blank" rel="noopener">Abrir en Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAMILIA ============ -->
+  <section class="section" id="familia">
+    <div class="container">
+      <p class="eyebrow">Con gratitud</p>
+      <h2 class="section-title">Familia</h2>
+      <div class="family-grid">
+        <div class="family-card reveal">
+          <p class="eyebrow" data-parents-label>Padres</p>
+          <p class="family-names" data-parents-names>[Nombre del padre] &amp; [Nombre de la madre]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ CIERRE ============ -->
+<section id="closing">
+  <div class="closing-inner reveal">
+    <p class="closing-text">Gracias por formar parte de este momento, que guardaré para siempre en mi corazón.</p>
+    <h2 class="closing-name">Maydeling</h2>
+    <p class="closing-xv">XV</p>
+    <img class="closing-photo" src="assets/images/cierre.jpg" alt="Fotografía final de Maydeling" loading="lazy">
+  </div>
+</section>
+
+<footer class="footer-mark">
+  Maydeling · XV Años
+  <span>05 de septiembre de 2026</span>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de fotografías">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+  <button class="lightbox-prev" id="lightbox-prev" aria-label="Foto anterior">‹</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-next" id="lightbox-next" aria-label="Foto siguiente">›</button>
+</div>
+
+<!-- ============ MUSIC PLAYER ============ -->
+<audio id="bg-audio" loop preload="none"></audio>
+<button class="music-toggle" id="music-toggle" aria-label="Reproducir o pausar música" title="Melodía de la velada">
+  <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+  <span id="music-title" class="sr-only" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Melodía de la velada</span>
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>
